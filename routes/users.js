@@ -24,5 +24,10 @@ router.post("/", (req, res) => {
   db.users.push(newUser);
   res.status(201).json(newUser);
 });
+// DELETE user
+router.delete("/:id", (req, res) => {
+  db.users = db.users.filter(u => u.id != req.params.id);
+  res.json({ message: "User deleted" });
+});
 
 module.exports = router;
