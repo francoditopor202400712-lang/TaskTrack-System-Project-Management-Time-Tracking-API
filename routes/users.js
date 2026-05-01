@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 
 // POST user
 router.post("/", (req, res) => {
-  const { name, role } = req.body;
+  const { name, role, email } = req.body;
 
   if (!name || !role) {
     return res.status(400).json({ message: "Name and role required" });
@@ -18,13 +18,18 @@ router.post("/", (req, res) => {
   const newUser = {
     id: db.users.length + 1,
     name,
-    role
+    role,
+    email
   };
-
   db.users.push(newUser);
   res.status(201).json(newUser);
 });
 // DELETE user
+router.delete("/:id", (req, res) => {
+  db.users = db.users.filter(u => u.id != req.params.id);
+  res.json({ message: "User deleted" });
+});
+
 router.delete("/:id", (req, res) => {
   db.users = db.users.filter(u => u.id != req.params.id);
   res.json({ message: "User deleted" });
