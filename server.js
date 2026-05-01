@@ -2,6 +2,13 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+
+// ✅ MUST BE FIRST (before routes)
+app.use(cors({
+  origin: "*", // allow all frontend origins (safe for school project)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
 
 // Import routes
